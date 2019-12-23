@@ -1,0 +1,51 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: WuTao
+ * @Date: 2019-12-22 17:51:35
+ * @LastEditors  : WuTao
+ * @LastEditTime : 2019-12-22 23:55:55
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    function FancyBorder(props){
+      return (
+        <div className={'FancyBorder FancyBorder-' + props.color}>
+          {props.children}
+        </div>
+      )
+    }
+    function WelcomeDialog(){
+      return (
+        <FancyBorder color='red'>
+          <h1 className="Dialog-title">
+            Welcome
+          </h1>
+          <p className="Dialog-message">
+            Thank you for visiting our spacecraft!
+          </p>
+        </FancyBorder>
+      )
+    }
+
+
+    ReactDOM.render(
+      <WelcomeDialog />,
+      document.getElementById("root")
+    )
+  </script>
+</body>
+</html>

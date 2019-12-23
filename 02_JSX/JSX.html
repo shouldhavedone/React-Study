@@ -1,0 +1,71 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: WuTao
+ * @Date: 2019-07-20 16:13:22
+ * @LastEditors  : WuTao
+ * @LastEditTime : 2019-12-20 13:47:57
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+    <div id="test4"></div>
+    <div id="test5"></div>
+
+
+
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/javascript">
+        const msg = "I Like You!";
+        const myId = "Andy";
+        //1、创建虚拟Dom
+        const vDom1 = React.createElement('h2', {id: myId.toLowerCase()}, msg.toUpperCase());
+        //2、渲染虚拟Dom
+        ReactDOM.render(vDom1, document.getElementById('test1'))
+    </script>
+    <script type="text/babel">
+        const vDom2 = <h3 id={myId.toUpperCase()}>{msg.toLowerCase()}</h3>;
+        ReactDOM.render(vDom2, document.getElementById('test2'))
+    </script>
+    <script type="text/javascript">
+        const cDom1 = React.createElement("span", {id: "spanID", style: {color: "red"}}, "我是一段文字")
+        ReactDOM.render(
+            cDom1,
+            document.getElementById("test3")
+        )
+    </script>
+    <script type="text/babel">
+        const cDom2 = <span id="span">我也是一段文字</span>
+        ReactDOM.render(
+            cDom2,
+            document.getElementById("test4")
+        )
+    </script>
+
+    <script type="text/babel">
+        function formatName(user){
+            return user.firstName + ' ' + user.lastName
+        }
+        const user = {
+            firstName: 'Harper',
+            lastName: 'Perez'
+        }
+        const element = (
+            <h1>Hello, { formatName(user) }!</h1>
+        )
+        ReactDOM.render(
+            element,
+            document.getElementById("test5")
+        )
+    </script>
+</body>
+</html>

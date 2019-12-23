@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表展示数据</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/prop-types.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function HOC(WrappedComponent) {
+            return class extends React.Component{
+                render(){
+                    return(
+                        <div>
+                            <h1>这是标题</h1>
+                            <WrappedComponent />
+                        </div>
+                    )
+                }
+            }
+        }
+        class HelloWorld extends React.Component {
+            render(){
+                return <div>这是内容</div>
+            }
+        }
+        var NewComponent = HOC(HelloWorld);
+        ReactDOM.render(<NewComponent/>, document.getElementById('root'))
+
+    </script>
+</body>
+</html>

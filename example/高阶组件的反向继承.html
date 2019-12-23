@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表展示数据</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/prop-types.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function HOC(WrappedComponent) {
+            return class extends WrappedComponent {
+                componentDidMount(){
+                    this.setState({
+                        isShow: false
+                    })
+                }
+                render(){
+                    return (
+                        super.render()
+                    )
+                }
+            }
+        }
+       class HelloWorld extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    isShow: true
+                }
+            }
+            render(){
+                return <div>{this.state.isShow? 'Hello World': 'Hello React'}</div>
+            }
+       }
+       var NewComponent = HOC(HelloWorld);
+        ReactDOM.render(<NewComponent/>, document.getElementById('root'))
+    </script>
+</body>
+</html>

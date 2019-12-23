@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆界面</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/prop-types.js"></script>
+    <script src="../js/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Login extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = {
+                    username: 'admin',
+                    password: 'admin'
+                };
+                this.login = this.login.bind(this);
+                this.check = this.check.bind(this);
+            }
+            login(){
+                if (this.refs.user.value === this.state.username && this.refs.pwd.value === this.state.password){
+                    alert('登陆成功!')
+                }else {
+                    alert('登陆失败');
+                }
+            }
+            check(){
+                if(this.refs.user.value.length > 10){
+                    alert('用户名不得超过10个字符，请重新输入');
+                }
+            }
+            render(){
+                var loginStyle = {
+                    width: 400,
+                    height: 250,
+                    background: '#FFF',
+                    margin: '200px auto',
+                    position: 'relative'
+                };
+                var hStyle = {
+                    position: 'absolute',
+                    left: 95,
+                    top: -40,
+                    padding: 0,
+                    margin: 50
+                };
+                var pStyle = {
+                    textAlign: 'center'
+                };
+                var userStyle = {
+                    width: 200,
+                    height: 30,
+                    border: 'solid #ccc 1px',
+                    borderRadius: 3,
+                    paddingLeft: 32,
+                    marginTop: 50
+                };
+                var pwdStyle = {
+                    width: 200,
+                    height: 30,
+                    border: 'solid #ccc 1px',
+                    borderRadius: 3,
+                    paddingLeft: 32,
+                    marginTop: 5
+                };
+                var buttonStyle = {
+                    width: 232,
+                    height: 30,
+                    background: '#e9e9e9',
+                    border: 'solid #ccc 1px',
+                    borderRadius: 3,
+                    textAlign: 'center'
+                };
+                return (
+                    <div style={loginStyle}>
+                        <h1 style={hStyle}>登陆界面</h1>
+                        <div>
+                            <p style={pStyle}>
+                                <input type="text" style={userStyle} ref="user" onChange={this.check} placeholder="用户名"/>
+                            </p>
+                            <p style={pStyle}>
+                                <input type="password" style={pwdStyle} ref="pwd" placeholder="密码"/>
+                            </p>
+                            <p style={pStyle}>
+                                <button style={buttonStyle} onClick={this.login}>登陆</button>
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Login/>, document.getElementById('root'));
+    </script>
+</body>
+</html>

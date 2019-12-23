@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="example1"></div>
+
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/prop-types.js"></script>
+<script src="../js/babel.min.js"></script>
+<script type="text/babel">
+
+    class Brother1 extends React.Component {
+        constructor(props){
+            super(props)
+            this.state = {}
+        }
+        render(){
+            return(
+                <div>
+                    <button onClick={this.props.refresh}>
+                        更新兄弟组件
+                    </button>
+                </div>
+            )
+        }
+    }
+
+    class Brother2 extends React.Component {
+        constructor(props){
+            super(props)
+            this.state = {}
+        }
+        render(){
+            return (
+                <div>
+                    {this.props.text || '兄弟组件未更新'}
+                </div>
+            )
+        }
+    }
+
+    class Father extends React.Component{
+        constructor(props){
+            super(props)
+            this.state = {}
+        }
+
+        refresh(){
+            return (e)=> {
+                this.setState ({
+                    text: "兄弟组件通信成功"
+                })
+            }
+        }
+        render(){
+            return (
+                <div>
+                    <h2>兄弟组件通信</h2>
+                    <Brother1 refresh={this.refresh()}/>
+                    <Brother2 text={this.state.text}/>
+                </div>
+            )
+
+        }
+    }
+    ReactDOM.render(<Father/>, document.getElementById('example1'));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表展示数据</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/prop-types.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class CommentList extends React.Component {
+            constructor(props){
+                super(props)
+                this.state = {languages: []}
+            }
+            componentDidMount(){
+                $.ajax({
+                    url: 'data.json',
+                    dataType: 'json',
+                    success: function (languages) {
+                        this.setState({languages: languages});
+                        console.log(this.state.languages);
+                    }.bind(this)
+                })
+            }
+            render(){
+                console.log(this.state.languages);
+                return (
+                    <ul>
+                        {this.state.languages.map(function (languages) {
+                            return (
+                                <ul key={languages.id}>
+                                    <li>{languages.name}</li>
+                                </ul>
+                            )
+                        })}
+                    </ul>
+                )
+            }
+        }
+        ReactDOM.render(<CommentList/>, document.getElementById('root'))
+    </script>
+</body>
+</html>

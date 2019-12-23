@@ -1,0 +1,111 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: WuTao
+ * @Date: 2019-12-20 23:24:36
+ * @LastEditors  : WuTao
+ * @LastEditTime : 2019-12-20 23:56:20
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<div id="example"></div>
+
+
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+
+<!-- <script type="text/babel">
+// 需求：计时器
+function tick(){
+    const element = (
+        <div>
+            <h1>Hello World!</h1>
+            <h2>It is {new Date().toLocaleTimeString() }</h2>
+        </div>
+    )
+    ReactDOM.render(
+        element,
+        document.getElementById("example")
+    )
+}
+setInterval(tick, 1000)
+</script> -->
+
+<!--
+<script type="text/babel">
+function Click(props){
+  return (
+    <div>
+      <h1Worl>Hello World!</h1>
+      <h2>It is { props.date.toLocaleTimeString() }</h2>
+    </div>
+  )
+}
+function tick(){
+  ReactDOM.render(
+    <Click date={new Date()} />,
+    document.getElementById("example")
+  )
+}
+setInterval(tick, 1000)
+</script>
+-->
+
+<script type="text/babel">
+class Clock extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = { date: new Date() }
+  }
+  // 当组件挂载时执行
+  componentDidMount(){
+    this.timeID = setInterval(
+      () => this.tick(),
+      1000
+    )
+  }
+  // 当组件卸载时执行
+  componentWillUnmount(){
+    clearInterval(this.timeID)
+  }
+
+ tick(){
+   this.setState({ // 更新组件局部状态
+     date: new Date()
+   })
+ }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello World!</h1>
+        <h2>It is { this.state.date.toLocaleTimeString() }</h2>
+      </div>
+    )
+  }
+}
+
+function App(){
+  return (
+    <div>
+      <Clock />
+      <Clock />
+      <Clock />
+    </div>
+  )
+}
+ReactDOM.render(
+  <App />,
+  document.getElementById("example")
+)
+</script>
+</body>
+</html>
