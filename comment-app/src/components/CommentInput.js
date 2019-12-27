@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:41
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-27 17:35:55
+ * @LastEditTime : 2019-12-27 23:15:27
  */
 import React from 'react'
 
@@ -17,7 +17,9 @@ class CommentInput extends React.Component {
     }
     this.handleContentChange = this.handleContentChange.bind(this)
   }
-
+  componentDidMount(){
+    this.input.focus()
+  }
   handleUsernameChange(event){
     this.setState({
       username: event.target.value
@@ -28,7 +30,7 @@ class CommentInput extends React.Component {
       content: event.target.value
     })
   }
-
+  
   handleSubmit(){
     if(this.props.onSubmit){
       const {username, content } = this.state
@@ -41,7 +43,7 @@ class CommentInput extends React.Component {
         <div className="comment-field">
           <span className="comment-field-name">用户名：</span>
           <div className="comment-field-input">
-            <input type="text" value={this.state.username} onChange={this.handleUsernameChange.bind(this)} />
+            <input type="text" ref={(input) => this.input=input} value={this.state.username} onChange={this.handleUsernameChange.bind(this)} />
           </div>
         </div>
         <div className="comment-field">

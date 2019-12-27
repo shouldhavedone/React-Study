@@ -1,0 +1,82 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: WuTao
+ * @Date: 2019-12-27 20:42:04
+ * @LastEditors  : WuTao
+ * @LastEditTime : 2019-12-27 20:53:44
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+
+  <script type='text/babel'>
+    class Clock extends React.Component {
+      constructor(){
+        super()
+        this.state = {
+          date: new Date()
+        }
+      }
+      componentWillMount(){
+        this.timer = setInterval(() => {
+          this.setState({
+            date: new Date()
+          })
+        }, 1000)
+      }
+      componentWillUnmount(){
+        clearInterval(this.timer)
+      }
+      render(){
+        return (
+          <div>
+            <h1>
+              <p>现在的时间是：</p>  
+              { this.state.date.toLocaleTimeString() }
+            </h1>  
+          </div>
+        )
+      }
+    }
+
+    class Index extends React.Component {
+      constructor(){
+        super()
+        this.state = {
+          isShowClock: true
+        }
+      }
+      handleShowHide(){
+        this.setState({
+          isShowClock: !this.state.isShowClock
+        })
+      }
+      render(){
+        return (
+          <div>
+            {this.state.isShowClock ? <Clock />: null}
+            <button onClick={this.handleShowHide.bind(this)}>
+              显示或隐藏时钟  
+            </button>
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(
+      <Index />,
+      document.getElementById('root')
+    )
+  </script>
+</body>
+</html>
