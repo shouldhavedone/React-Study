@@ -4,32 +4,35 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:41
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 15:20:00
+ * @LastEditTime : 2019-12-28 17:24:51
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import WrapWithLoadData from './WrapWithLoadData'
 
 class CommentInput extends React.Component {
   static propTypes = {
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    data: PropTypes.any,
+    saveData: PropTypes.func.isRequired
   }
   constructor(props){
     super(props)
     this.state = {
-      username: "",
+      username: props.data,
       content: ""
     }
     this.handleContentChange = this.handleContentChange.bind(this)
   }
-  componentWillMount(){
-    this._loadUsername()
-  }
-  _loadUsername(){
-    let username = localStorage.getItem("username")
-    if(username){
-      this.setState({ username })
-    }
-  }
+  // componentWillMount(){
+  //   this._loadUsername()
+  // }
+  // _loadUsername(){
+  //   let username = localStorage.getItem("username")
+  //   if(username){
+  //     this.setState({ username })
+  //   }
+  // }
   componentDidMount(){
     this.textarea.focus()
   }
@@ -54,11 +57,12 @@ class CommentInput extends React.Component {
     }
     this.setState({content: ''})
   }
-  _saveUsername(username){
-    localStorage.setItem('username', username)
-  }
+  // _saveUsername(username){
+  //   localStorage.setItem('username', username)
+  // }
   handleUsernameBlur(event){
-    this._saveUsername(event.target.value)
+    //this._saveUsername(event.target.value)
+    this.props.saveData(event.target.value)
   }
   render(){
     return (
@@ -91,4 +95,5 @@ class CommentInput extends React.Component {
   }
 }
 
+CommentInput = WrapWithLoadData(CommentInput, 'comments')
 export default CommentInput

@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:58
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 16:09:11
+ * @LastEditTime : 2019-12-28 17:34:24
  */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -58,7 +58,7 @@ class Comment extends React.Component{
     const { comment } = this.props
     return(
       <div className='comment'>
-        <div className='comment-user'>
+        <div className='comment-username'>
           <span>{comment.username}：</span>
         </div>
         <p
