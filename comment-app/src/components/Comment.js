@@ -4,22 +4,23 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:58
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-27 17:57:37
+ * @LastEditTime : 2019-12-27 23:52:48
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class Comment extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {}
+  static propTypes = {
+    comment: PropTypes.object.isRequired
   }
   render(){
+    const { comment } = this.props
     return(
       <div className='comment'>
         <div className='comment-user'>
-          <span>{this.props.comment.username}：</span>
+          <span>{comment.username}：</span>
         </div>
-        <p>{this.props.comment.content}</p>
+        <p>{comment.content}</p>
       </div>
     )
   }
