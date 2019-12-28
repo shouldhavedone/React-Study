@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:41
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 14:47:28
+ * @LastEditTime : 2019-12-28 15:20:00
  */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -46,8 +46,13 @@ class CommentInput extends React.Component {
   handleSubmit(){
     if(this.props.onSubmit){
       const {username, content } = this.state
-      this.props.onSubmit({username, content})
+      this.props.onSubmit({
+        username, 
+        content,
+        createTime: +new Date()
+      })
     }
+    this.setState({content: ''})
   }
   _saveUsername(username){
     localStorage.setItem('username', username)
