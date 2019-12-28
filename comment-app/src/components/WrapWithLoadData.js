@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-28 16:35:12
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 17:51:05
+ * @LastEditTime : 2019-12-28 18:03:33
  */
 
 import React from 'react'
@@ -39,7 +39,7 @@ export default (WrappedComponent, name) => {
         <WrappedComponent
           data={this.state.data}
           saveData={this.saveData.bind(this)}
-          // 将其他参数原封不动的传递给被包装的这个组件
+          // 将其他参数原封不动的传递给被包装的这个组件 
           {...this.props}
         />
       )
