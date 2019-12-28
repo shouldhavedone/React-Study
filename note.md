@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-07-23 15:21:11
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 14:57:12
+ * @LastEditTime : 2019-12-28 16:03:42
  -->
 ## 功能界面的组件化编码流程
 1. 拆分组件：拆分界面，抽取组件
@@ -80,3 +80,16 @@ PropTypes.element
     * 事件监听方法`handle`
     * `render*`开头的方法，有时候`render()`方法里面的内容会分开到不同函数里面进行，这些函数都以`render*`开头
     * `render()`方法
+12. `dangerouslySetInnerHTML`: 设置动态设置元素的innerHTML
+> 可以防止跨站脚本攻击(XSS),但是这个属性不必要的情况不要使用
+```javascript
+render(){
+    return (
+        <div
+            className='editor-wrapper' // 富文本编译器
+            dangerouslySetInnerHTML={{__html: this.state.content}}
+        />
+    )
+}
+```
+需要给`dangerouslySetInnerHTML`传入一个对象，这个对象的`__html`属性值就相当于元素的 `innerHTML`，这样就可以动态渲染元素的`innerHTML`结构了

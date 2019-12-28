@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:58
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 15:53:35
+ * @LastEditTime : 2019-12-28 16:09:11
  */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -45,6 +45,15 @@ class Comment extends React.Component{
       this.props.onDeleteComment(this.props.index)
     }
   }
+  __getProcessedContent(content){
+    return content
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
+      .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
+  }
   render(){
     const { comment } = this.props
     return(
@@ -52,7 +61,11 @@ class Comment extends React.Component{
         <div className='comment-user'>
           <span>{comment.username}：</span>
         </div>
-        <p>{comment.content}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html:this.__getProcessedContent(comment.content)
+          }}
+        />
         <span className='comment-createdtime'>
           {this.state.timeString}
         </span>
