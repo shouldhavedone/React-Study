@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:27
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 15:17:25
+ * @LastEditTime : 2019-12-28 15:52:36
  */
 import React from 'react'
 import CommentInput from './CommentInput'
@@ -39,12 +39,20 @@ class CommentApp extends React.Component {
     this.setState({ comments })
     this._saveComments(comments)
   }
-
+  handleDeleteComment(index){
+    let comments = this.state.comments
+    comments.splice(index, 1)
+    this.setState({comments})
+    this._saveComments(comments)
+  }
   render() {
     return (
       <div className='wrapper'>
         <CommentInput onSubmit={this.handleSubmitComment.bind(this)} />
-        <CommentList comments={this.state.comments}/>
+        <CommentList 
+          comments={this.state.comments}
+          onDeleteComment={this.handleDeleteComment.bind(this)}
+        />
       </div>
     )
   }
