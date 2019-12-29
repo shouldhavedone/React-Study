@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-07-23 15:21:11
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 17:35:53
+ * @LastEditTime : 2019-12-29 11:00:25
  -->
 ## 功能界面的组件化编码流程
 1. 拆分组件：拆分界面，抽取组件
@@ -92,9 +92,14 @@ render(){
     )
 }
 ```
-需要给`dangerouslySetInnerHTML`传入一个对象，这个对象的`__html`属性值就相当于元素的 `innerHTML`，这样就可以动态渲染元素的`innerHTML`结构了
+    需要给`dangerouslySetInnerHTML`传入一个对象，这个对象的`__html`属性值就相当于元素的 `innerHTML`，这样就可以动态渲染元素的`innerHTML`结构了
 
 13. 高阶组件：一个寒素，传给它一个组件，它返回一个新的组件
 > 为了组件之间的代码复用  
 把组件之间可复用的代码、逻辑抽离到高阶组件当中。新的组件和传入的组件通过`props`传递信息。
-
+14. `context`: 某个组件只要往自己的 context 里面放了某些状态，这个组件之下的所有子组件都直接访问这个状态而不需要通过中间组件的传递,一个组件的 context 只有它的子组件能够访问，它的父组件是不能访问到的
+    * `getChildContext`: 设置`context`，返回的对象就是`context`
+    * `childContextTypes`: 验证`getChildContext`返回的对象，**必须写**
+    * 子组件要获取`context`里面的内容，必须写`contextTypes`来声明和验证需要获取的状态的类型，**必须写**
+    * 缺点：极大地增强了组件之间的耦合性，context 里面的数据能被随意接触就能被随意修改，每个组件都能够改 context 里面的内容会导致程序的运行不可预料
+    
