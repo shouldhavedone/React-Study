@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-07-23 15:21:11
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-29 20:50:27
+ * @LastEditTime : 2019-12-29 21:42:48
  -->
 ## 功能界面的组件化编码流程
 1. 拆分组件：拆分界面，抽取组件
@@ -56,17 +56,17 @@ document.getElementById('root').appendChild(headerDOM)
     * `componentDidUpdate()`: 组件重新渲染并且把更改变更到真实的 DOM 以后调用
 8. 使用ref获取已经挂载的元素的DOM节点，但是能不使用ref就不用，多余的DOM操作是代码里的‘噪音’
 9. **`propTypes`**: `React.js` 提供的一种给组件的配置参数加上类型验证的机制
-```javascript
-PropTypes.array
-PropTypes.bool
-PropTypes.number
-PropTypes.func
-PropTypes.object
-PropTypes.string
-PropTypes.node  
-PropTypes.element
-...
-```
+    ```javascript
+    PropTypes.array
+    PropTypes.bool
+    PropTypes.number
+    PropTypes.func
+    PropTypes.object
+    PropTypes.string
+    PropTypes.node  
+    PropTypes.element
+    ...
+    ```
 10. 自定义的组件命名和方法的摆放顺序
     * 所有私有方法以"_"开头
     * 所有时间监听方法都用`handle`开头
@@ -105,3 +105,27 @@ render(){
 15. 纯函数：一个函数的返回结果子依赖于它的参数，并且在执行过程里面没有副作用
     * 函数的返回结果子依赖于他的参数
     * 函数执行过程里面没有副作用
+16. Redux
+    * 共享的状态如果可以被任意修改，程序的行为将非常不可预测 => 提高修改数据的门槛
+    > 通过`dispatch`执行某些允许的修改操作，并且必须大张旗鼓的在`action`里面声明
+    >> 抽象出来一个`createStore`，产生`store`,包含`getStore`和`dispatch`函数
+    * 每次修改数据都需要手动重新渲染， 希望可以自动渲染 => 订阅者模式
+    > 通过`store.subscribe`订阅数据修改事件，每次数据更新自动重新渲染视图
+    * 发现重新渲染视图有严重的性能问题 => 共享结构的对象
+    > 在每个渲染函数的开头进行简单的判断避免没有被修改过的数据重新渲染
+    * 优化了`stateChanger`为`reducer`，定义了`reducer`为纯函数
+    > 负责初始`state`和根据`state`和`action`计算具有共享结构的新的`state`
+    ```javascript
+    // 定一个reducer
+    function reducer(state, action){
+        // 初始化state 和 switch case 
+    }
+    // 生成 store
+    const store = createStore(reducer)
+    // 监听数据变化重新渲染页面
+    store.subscribe(() => renderApp(store.getState()))
+    // 首次渲染页面
+    renderApp(store.getState())
+    // 后面可以随意 dispatch ,页面自动更新
+    store.dispatch( ... )
+    ```
