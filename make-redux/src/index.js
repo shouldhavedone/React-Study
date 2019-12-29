@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-29 11:10:16
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-29 21:16:40
+ * @LastEditTime : 2019-12-29 21:25:19
  */
 // import React from 'react';
 // import ReactDOM from 'react-dom';
@@ -19,15 +19,28 @@
 // // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-function createStore(state, stateChanger){
+// function createStore(state, stateChanger){
+//   const listeners = []
+//   const subscribe = (listener) => listeners.push(listener)
+//   const getState = () => state
+//   const dispatch = (action) => {
+//     //stateChanger(state, action)
+//     state = stateChanger(state, action) // 覆盖原对象
+//     listeners.forEach((listener) => listener())
+//   }
+//   return {getState, dispatch, subscribe}
+// }
+function createStore(reducer){
+  let state = null
   const listeners = []
   const subscribe = (listener) => listeners.push(listener)
   const getState = () => state
   const dispatch = (action) => {
     //stateChanger(state, action)
-    state = stateChanger(state, action) // 覆盖原对象
+    state = reducer(state, action) // 覆盖原对象
     listeners.forEach((listener) => listener())
   }
+  dispatch({}) // 初始化state
   return {getState, dispatch, subscribe}
 }
 
@@ -53,17 +66,52 @@ function renderContent (newContent, oldContent={}) {
   contentDOM.innerHTML = newContent.text
   contentDOM.style.color = newContent.color
 }
-let appState = {
-  title: {
-    text: 'React.js',
-    color: 'blue'
-  },
-  content: {
-    text: 'React.js',
-    color: 'red'
+// let appState = {
+//   title: {
+//     text: 'React.js',
+//     color: 'blue'
+//   },
+//   content: {
+//     text: 'React.js',
+//     color: 'red'
+//   }
+// }
+// function stateChanger(state, action){
+//   switch(action.type){
+//     case 'UPDATE_TITLE_TEXT':
+//       return { // 构建新的对象并且返回
+//         ...state,
+//         title: {
+//           ...state.title,
+//           text: action.text
+//         }
+//       }
+//     case 'UPDATE_TITLE_COLOR':
+//       return {
+//         ...state,
+//         title: {
+//           ...state.title,
+//           color: action.color
+//         }
+//       }
+//     default:
+//       return state // 没有修改，返回原来的对象
+//   }
+// }
+
+function themeReducer(state, action){
+  if(!state){
+    return {
+      title: {
+        text: 'React.js',
+        color: 'red'
+      },
+      content: {
+        text: 'React.js',
+        color: 'blue'
+      }
+    }
   }
-}
-function stateChanger(state, action){
   switch(action.type){
     case 'UPDATE_TITLE_TEXT':
       return { // 构建新的对象并且返回
@@ -86,7 +134,8 @@ function stateChanger(state, action){
   }
 }
 
-const store = createStore(appState, stateChanger)
+const store = createStore(themeReducer)
+
 let oldState = store.getState() // 缓存旧的state
 store.subscribe(() => {
   const newState = store.getState() // 数据可能变化，获取新的state
