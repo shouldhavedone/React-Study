@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:41
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-28 17:24:51
+ * @LastEditTime : 2019-12-29 10:31:32
  */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -19,7 +19,8 @@ class CommentInput extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      username: props.data,
+      username: props.data || [],
+      // username: '',
       content: ""
     }
     this.handleContentChange = this.handleContentChange.bind(this)
@@ -61,7 +62,7 @@ class CommentInput extends React.Component {
   //   localStorage.setItem('username', username)
   // }
   handleUsernameBlur(event){
-    //this._saveUsername(event.target.value)
+    // this._saveUsername(event.target.value)
     this.props.saveData(event.target.value)
   }
   render(){
