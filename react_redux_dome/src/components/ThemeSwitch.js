@@ -3,18 +3,47 @@
  * @version: 
  * @Author: WuTao
  * @Date: 2019-12-29 23:23:15
- * @LastEditors: WuTao
- * @LastEditTime: 2019-12-29 23:25:31
+ * @LastEditors  : WuTao
+ * @LastEditTime : 2019-12-30 20:16:51
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-class ThemeSwitch extends Component{
+class ThemeSwitch extends Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
+  constructor(){
+    super()
+    this.state = {themeColor: ''}
+  }
+  componentWillMount(){
+    const {store} = this.context
+    this._updateThemeColor()
+    store.subscribe(() => this._updateThemeColor())
+  }
+  _updateThemeColor(){
+    const {store} = this.context
+    const state = store.getState()
+    this.setState({ themeColor: state.themeColor })
+  }
+  // dispatch action 改变颜色
+  handleSwitchColor(color){
+    const {store} = this.context
+    store.dispatch({
+      type: 'CHANGE_COLOR',
+      themeColor: color
+    })
+  }
   render(){
     return (
       <div>
-        <button>Red</button>
-        <button>Blue</button>
+        <button 
+          style={{color: this.state.themeColor}}
+          onClick={this.handleSwitchColor.bind(this, 'red')} >Red</button>
+        <button 
+          style={{color: this.state.themeColor}}
+          onClick={this.handleSwitchColor.bind(this, 'blue')} >Blue</button>
       </div>
     )
   }
