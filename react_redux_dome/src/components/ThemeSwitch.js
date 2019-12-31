@@ -4,11 +4,11 @@
  * @Author: WuTao
  * @Date: 2019-12-29 23:23:15
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-30 21:45:23
+ * @LastEditTime : 2019-12-30 22:18:31
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {connect} from './react-redux'
+import {connect} from 'react-redux'
 
 class ThemeSwitch extends Component {
   static propTypes = {
