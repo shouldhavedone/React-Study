@@ -4,7 +4,7 @@
  * @Author: WuTao
  * @Date: 2019-12-29 22:11:08
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-30 22:20:17
+ * @LastEditTime : 2019-12-31 16:14:41
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -12,8 +12,8 @@ import './index.css';
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 // import App from './App';
-import Header from './components/Header'
-import Content from './components/Content'
+import Header from './containers/Header'
+import Content from './containers/Content'
 
 import * as serviceWorker from './serviceWorker';
 

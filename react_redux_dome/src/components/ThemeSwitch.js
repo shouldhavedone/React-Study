@@ -4,11 +4,10 @@
  * @Author: WuTao
  * @Date: 2019-12-29 23:23:15
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-30 22:18:31
+ * @LastEditTime : 2019-12-31 16:10:57
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
 
 class ThemeSwitch extends Component {
   static propTypes = {
@@ -35,18 +34,5 @@ class ThemeSwitch extends Component {
     )
   }
 }
-const mapStateToProps = (state) =>{
-  return {
-    themeColor: state.themeColor
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSwitchColor: (color) => {
-      dispatch({ type: 'CHANGE_COLOR', themeColor: color })
-    }
-  }
-}
-ThemeSwitch = connect(mapStateToProps, mapDispatchToProps)(ThemeSwitch)
 
 export default ThemeSwitch
