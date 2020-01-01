@@ -4,36 +4,34 @@
  * @Author: WuTao
  * @Date: 2019-12-27 17:01:41
  * @LastEditors  : WuTao
- * @LastEditTime : 2019-12-29 10:31:32
+ * @LastEditTime : 2020-01-01 22:43:13
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import WrapWithLoadData from './WrapWithLoadData'
+// import WrapWithLoadData from './WrapWithLoadData'
 
 class CommentInput extends React.Component {
   static propTypes = {
+    // onSubmit: PropTypes.func,
+    // data: PropTypes.any,
+    // saveData: PropTypes.func.isRequired
+    username: PropTypes.any,
     onSubmit: PropTypes.func,
-    data: PropTypes.any,
-    saveData: PropTypes.func.isRequired
+    // handleUsernameBlur: PropTypes.func
+    onUserNameInputBlur: PropTypes.func
+  }
+  static defaultProps = {
+    username: ''
   }
   constructor(props){
     super(props)
     this.state = {
-      username: props.data || [],
-      // username: '',
+      // username: props.data || [],
+      username: props.username,  // 从props中取username字段
       content: ""
     }
-    this.handleContentChange = this.handleContentChange.bind(this)
+    // this.handleContentChange = this.handleContentChange.bind(this)
   }
-  // componentWillMount(){
-  //   this._loadUsername()
-  // }
-  // _loadUsername(){
-  //   let username = localStorage.getItem("username")
-  //   if(username){
-  //     this.setState({ username })
-  //   }
-  // }
   componentDidMount(){
     this.textarea.focus()
   }
@@ -49,21 +47,17 @@ class CommentInput extends React.Component {
   }
   handleSubmit(){
     if(this.props.onSubmit){
-      const {username, content } = this.state
       this.props.onSubmit({
-        username, 
-        content,
+        username: this.state.username, 
+        content: this.state.content,
         createTime: +new Date()
       })
     }
     this.setState({content: ''})
   }
-  // _saveUsername(username){
-  //   localStorage.setItem('username', username)
-  // }
   handleUsernameBlur(event){
-    // this._saveUsername(event.target.value)
-    this.props.saveData(event.target.value)
+    // this.props.saveData(event.target.value)
+    this.props.onUserNameInputBlur(event.target.value)
   }
   render(){
     return (
@@ -84,7 +78,7 @@ class CommentInput extends React.Component {
             <textarea 
               ref={(textarea) => this.textarea=textarea} 
               value={this.state.content} 
-              onChange={this.handleContentChange} 
+              onChange={this.handleContentChange.bind(this)} 
             />
           </div>
         </div>
@@ -96,5 +90,5 @@ class CommentInput extends React.Component {
   }
 }
 
-CommentInput = WrapWithLoadData(CommentInput, 'comments')
+// CommentInput = WrapWithLoadData(CommentInput, 'comments')
 export default CommentInput
